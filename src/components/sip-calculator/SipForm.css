@@ -1,0 +1,20 @@
+.tablediv {
+    width: 300px;
+    text-align: left;
+  }
+
+  .parent{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    direction: rtl;
+    text-align: left; /* Ensure text starts from the right and grows leftward */
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  td{
+    padding-top: 30px;
+    text-align: left;
+  }
+  
