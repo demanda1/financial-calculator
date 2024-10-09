@@ -41,6 +41,12 @@ export default function SipForm() {
     }
   }
 
+  const inrFormatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+
+
 
   return (
     <div>
@@ -119,22 +125,22 @@ export default function SipForm() {
                <td>
                <div className='tablediv'>Invested Amount</div>
                 </td>
-                <td><div id="invested-amount"></div>{Math.round(obj.monthlySip * obj.year * 12 )}</td>
+                <td><div id="invested-amount"></div>{inrFormatter.format(Math.round(obj.monthlySip * obj.year * 12 ))}</td>
             </tr>
             <tr>
                <td>
                <div className='tablediv'>Estimated Return</div>
                 </td>
                 <td><div id='estimated-return'></div>
-                {Math.round( obj.monthlySip * (((Math.pow(1+obj.rate/1200, obj.year*12) - 1) /(obj.rate/1200)).toFixed(4)) * (1 + (obj.rate/1200)))
-                - Math.round(obj.monthlySip * obj.year * 12 )}
+                {inrFormatter.format(Math.round( obj.monthlySip * (((Math.pow(1+obj.rate/1200, obj.year*12) - 1) /(obj.rate/1200)).toFixed(4)) * (1 + (obj.rate/1200)))
+                - Math.round(obj.monthlySip * obj.year * 12 ))}
                 </td>
             </tr>
             <tr>
                <td>
                <div className='tablediv'>Total Value</div>
                 </td>
-                <td><div id='total-value'></div>{Math.round( obj.monthlySip * (((Math.pow(1+obj.rate/1200, obj.year*12) - 1) /(obj.rate/1200)).toFixed(4)) * (1 + (obj.rate/1200)))}</td>
+                <td><div id='total-value'></div>{inrFormatter.format(Math.round( obj.monthlySip * (((Math.pow(1+obj.rate/1200, obj.year*12) - 1) /(obj.rate/1200)).toFixed(4)) * (1 + (obj.rate/1200))))}</td>
             </tr>
             </tbody>
         </table>
