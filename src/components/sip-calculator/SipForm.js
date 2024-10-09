@@ -44,6 +44,8 @@ export default function SipForm() {
   const inrFormatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
+    minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
   });
 
 
@@ -98,7 +100,7 @@ export default function SipForm() {
                     input: {
                         startAdornment: <InputAdornment position="start">%</InputAdornment>,
                         },
-                        }}>{obj.rate}</TextField>
+                        }} onChange={()=>modifier('rate')}>{obj.rate}</TextField>
                 </div></td>
             </tr>
             <tr>
@@ -113,7 +115,7 @@ export default function SipForm() {
                     input: {
                         startAdornment: <InputAdornment position="start">Yrs</InputAdornment>,
                         },
-                        }}>{obj.year}</TextField>
+                        }} onChange={()=>modifier('year')}>{obj.year}</TextField>
                 </div></td>
             </tr>
             <tr>
