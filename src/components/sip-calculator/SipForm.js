@@ -13,7 +13,7 @@ export default function SipForm() {
         monthlySip: 25000,
         rate: 12,
         year: 10,
-        max: 1000000
+        max: 100000
     });
 
     const handleSliderChange = (newobj) => {

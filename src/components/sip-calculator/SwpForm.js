@@ -7,13 +7,14 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 
-export default function LumpsumForm() {
+export default function SwpForm() {
 
     const [obj, setValue] = useState({
-        investment: 1000000,
-        rate: 12,
-        year: 10,
-        max: 10000000
+        investment: 500000,
+        withdrawal: 10000,
+        rate: 8,
+        year: 5,
+        max: 5000000
     });
 
     const handleSliderChange = (newobj) => {
@@ -22,7 +23,11 @@ export default function LumpsumForm() {
             console.log(newobj.newValue);
             document.getElementById('investment').value=newobj.newValue;
             setValue({...obj, investment: newobj.newValue});
-        } else if(newobj.element==='rate'){
+        } else if(newobj.element==='withdrawal'){
+            console.log(newobj.newValue);
+            document.getElementById('withdrawal').value=newobj.newValue;
+            setValue({...obj, withdrawal: newobj.newValue});
+        }else if(newobj.element==='rate'){
             console.log(newobj.newValue);
             document.getElementById('rate').value=newobj.newValue;
             setValue({...obj, rate: newobj.newValue});
@@ -36,7 +41,9 @@ export default function LumpsumForm() {
   function modifier(changedObj){
     if(changedObj==='investment'){
         setValue({...obj, investment: document.getElementById('investment').value});
-    } else if(changedObj==='rate'){
+    } else if(changedObj==='withdrawal'){
+        setValue({...obj, withdrawal: document.getElementById('withdrawal').value});
+    }else if(changedObj==='rate'){
         setValue({...obj, rate: document.getElementById('rate').value});
     } else if(changedObj==='year'){
         setValue({...obj, year: document.getElementById('year').value});
@@ -76,6 +83,29 @@ export default function LumpsumForm() {
                     </Box>
                 </Grid>
                     <SliderComponent onValueChange={handleSliderChange} element='investment' max={obj.max} defaultValue={obj.investment} step={1}/>
+                
+            </Grid>
+
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}>
+                    <Box sx={{ padding: 2}}>
+                        <div className='tablediv'>Withdrawal per month</div>
+                    </Box>
+                </Grid>
+                <Grid size={6} item xs={12} sm={6} md={4}>
+                    <Box sx={{ width: '100%', padding: 2 }}>
+                        <div> 
+                            <TextField label="WithdrawalAmount" id="withdrawal" type="number" defaultValue={obj.withdrawal} size="small" 
+                           
+                            slotProps={{
+                                input: {
+                                startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                                },
+                            }} onChange={()=>modifier('withdrawal')}>{obj.withdrawal}</TextField>
+                        </div>
+                    </Box>
+                </Grid>
+                    <SliderComponent onValueChange={handleSliderChange} element='withdrawal' max={50000} defaultValue={obj.withdrawal} step={1}/>
                 
             </Grid>
 
@@ -127,7 +157,9 @@ export default function LumpsumForm() {
                         {
                             data: [
                                 { id: 0, value: obj.investment, label: 'Invested', color:'purple' },
-                                { id: 1, value: Math.round( obj.investment * Math.pow((1 + obj.rate/100), obj.year)) - obj.investment, label: 'Estimated', color:'plum' }
+                                { id: 1, value: Math.round((obj.investment*Math.pow(1+obj.rate/1200,12*obj.year))-
+                                    (obj.withdrawal * ((Math.pow((1+obj.rate/1200), 12*obj.year)-1)/(obj.rate/1200)))), 
+                                    label: 'Remaining', color:'plum' }
                                 ],
                             innerRadius: 30,
                             outerRadius: 100,
@@ -153,19 +185,20 @@ export default function LumpsumForm() {
             </Grid>
             <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid size={6}>
-                    <div className='tablediv'>Estimated Return</div>
+                    <div className='tablediv'>Total withdrawal</div>
                 </Grid>
                 <Grid size={6}>
-                <div id='estimated-return'></div>
-                {inrFormatter.format(Math.round( obj.investment * Math.pow((1 + obj.rate/100), obj.year)) - obj.investment)}
+                <div id='total-withdrawal'></div>
+                {inrFormatter.format(Math.round( obj.withdrawal * 12 * obj.year))}
                 </Grid>
             </Grid>
             <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid size={6}>
-                    <div className='tablediv'>Total Value</div>
+                    <div className='tablediv'>Final Value</div>
                 </Grid>
                 <Grid size={6}>
-                    <div id='total-value'></div>{inrFormatter.format(Math.round( obj.investment * Math.pow((1 + obj.rate/100), obj.year)))}
+                    <div id='final-value'></div>{inrFormatter.format(Math.round((obj.investment*Math.pow(1+obj.rate/1200,12*obj.year))-
+                     (obj.withdrawal * ((Math.pow((1+obj.rate/1200), 12*obj.year)-1)/(obj.rate/1200)))))}
                 </Grid>
             </Grid>
         </Grid>

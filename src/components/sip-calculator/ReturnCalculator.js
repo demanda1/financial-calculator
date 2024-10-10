@@ -5,6 +5,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
+import SwpForm from "./SwpForm";
 
 export default function ReturnCalculator() {
     const [alignment, setAlignment] = React.useState('sip');
@@ -15,6 +16,18 @@ export default function ReturnCalculator() {
         }
       };
 
+
+        const pickCalculator=()=>{
+            if(alignment==='sip'){
+                return <SipForm />
+            } else if(alignment==='lumpsum'){
+                return <LumpsumForm />
+            } else if(alignment==='swp'){
+                return <SwpForm />
+            }
+          }
+      
+
     return(
         <div>
             <Box sx={{ width: '100%' }}>
@@ -24,10 +37,11 @@ export default function ReturnCalculator() {
                         <ToggleButtonGroup color="primary" value={alignment} exclusive onChange={handleChange} aria-label="Platform" >
                         <ToggleButton color="secondary" value="sip">SIP</ToggleButton>
                         <ToggleButton color="secondary" value="lumpsum">Lumpsum</ToggleButton>
+                        <ToggleButton color="secondary" value="swp">SWP</ToggleButton>
                         </ToggleButtonGroup>
                         </div>
                     <div>
-                        {(alignment==='sip')? <SipForm/> : <LumpsumForm/>}
+                        {pickCalculator()}
                     </div>
                     </Grid>
                 </Grid>
