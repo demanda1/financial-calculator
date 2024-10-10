@@ -4,6 +4,8 @@ import SliderComponent from '../utils/SliderComponent';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PieChart } from '@mui/x-charts/PieChart';
+import Grid from '@mui/material/Grid2';
+import Box from '@mui/material/Box';
 
 export default function LumpsumForm() {
 
@@ -50,23 +52,77 @@ export default function LumpsumForm() {
 
 
   return (
-    <div>
-        <table>
-            <thead>
-            </thead>
-            <tbody>
-            <tr>
-                <td ><div className='tablediv'>Total Investment</div> </td>
-                <td><div> 
-                   <TextField label="Amount" id="investment" type="number" defaultValue={obj.investment} size="small" sx={{ m: 1, width: '25ch' }}
-                    slotProps={{
-                    input: {
-                        startAdornment: <InputAdornment position="start">₹</InputAdornment>,
-                        },
-                        }} onChange={()=>modifier('investment')}>{obj.investment}</TextField>
-                </div></td>
-                <td rowSpan={9}>
-                <PieChart
+    <Box sx={{ width: '100%' }}>
+      <Grid container paddingTop={5} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid size={6}>
+        {/* Inner sip form  open*/}
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}>
+                    <Box sx={{ padding: 2}}>
+                        <div className='tablediv'>Total Investment</div>
+                    </Box>
+                </Grid>
+                <Grid size={6} item xs={12} sm={6} md={4}>
+                    <Box sx={{ width: '100%', padding: 2 }}>
+                        <div> 
+                            <TextField label="Amount" id="investment" type="number" defaultValue={obj.investment} size="small" 
+                           
+                            slotProps={{
+                                input: {
+                                startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                                },
+                            }} onChange={()=>modifier('investment')}>{obj.investment}</TextField>
+                        </div>
+                    </Box>
+                </Grid>
+                    <SliderComponent onValueChange={handleSliderChange} element='investment' max={obj.max} defaultValue={obj.investment} step={1}/>
+                
+            </Grid>
+
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}>
+                    <Box sx={{ padding: 2}}>
+                        <div className='tablediv'>Expected Return Rate</div>
+                    </Box>
+                </Grid>
+                <Grid size={6}> <Box sx={{ padding: 2}}>
+                    <div> 
+                        <TextField  label="Return Rate" id="rate" type="number" defaultValue={obj.rate} size="small"   
+                        slotProps={{
+                            input: {
+                            startAdornment: <InputAdornment position="start">%</InputAdornment>,
+                            },
+                            }} onChange={()=>modifier('rate')}>{obj.rate}</TextField>
+                    </div>
+                    </Box>
+                </Grid>
+                        <SliderComponent onValueChange={handleSliderChange} element='rate' max='50' defaultValue={12} step={0.1}/>
+            </Grid>
+
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}> <Box sx={{ padding: 2}}>
+                    <div className='tablediv'>Time Period</div> 
+                    </Box>
+                </Grid>
+                <Grid size={6}> <Box sx={{ padding: 2 }}>
+                    <div> 
+                        <TextField  label="Years" id="year" type="number" defaultValue={obj.year} size="small" 
+                        slotProps={{
+                        input: {
+                            startAdornment: <InputAdornment position="start">Yrs</InputAdornment>,
+                            },
+                            }} onChange={()=>modifier('year')}>{obj.year}</TextField>
+                    </div>
+                    </Box>
+                </Grid>
+               
+                    <SliderComponent onValueChange={handleSliderChange} element='year' max='50' defaultValue={10} step={1}/> 
+            </Grid>
+
+        {/* Inner sip form closed */} 
+        </Grid>
+        <Grid paddingTop={10} size={6}>
+        <PieChart
                         series={[
                         {
                             data: [
@@ -84,65 +140,40 @@ export default function LumpsumForm() {
                      width={400}
                     height={200}
                 />
-                </td>
-            </tr>
-            <tr>
-               <td colSpan="2" >
-                <SliderComponent onValueChange={handleSliderChange} element='investment' max={obj.max} defaultValue={obj.investment} step={1}/>
-                </td> 
-            </tr>
-            <tr>
-                <td><div className='tablediv'>Expected Return Rate</div> </td>
-                <td colSpan="2"><div>
-                <TextField  label="Return Rate" id="rate" type="number" defaultValue={obj.rate} size="small" sx={{ m: 1, width: '25ch' }}  slotProps={{
-                    input: {
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>,
-                        },
-                        }} onChange={()=>modifier('rate')}>{obj.rate}</TextField>
-                </div></td>
-            </tr>
-            <tr>
-               <td colSpan="2">
-               <SliderComponent onValueChange={handleSliderChange} element='rate' max='50' defaultValue={12} step={0.1}/>
-                </td>
-            </tr>
-            <tr>
-                <td><div className='tablediv'>Time Period</div> </td>
-                <td colSpan="2"><div>
-                <TextField  label="Years" id="year" type="number" defaultValue={obj.year} size="small" sx={{ m: 1, width: '25ch' }}  slotProps={{
-                    input: {
-                        startAdornment: <InputAdornment position="start">Yrs</InputAdornment>,
-                        },
-                        }} onChange={()=>modifier('year')}>{obj.year}</TextField>
-                </div></td>
-            </tr>
-            <tr>
-               <td colSpan="2">
-               <SliderComponent onValueChange={handleSliderChange} element='year' max='50' defaultValue={10} step={1}/>
-                </td>
-            </tr>
-            <tr>
-               <td>
-               <div className='tablediv'>Invested Amount</div>
-                </td>
-                <td><div id="invested-amount"></div>{inrFormatter.format(obj.investment)}</td>
-            </tr>
-            <tr>
-               <td>
-               <div className='tablediv'>Estimated Return</div>
-                </td>
-                <td><div id='estimated-return'></div>
+        </Grid>
+       {/* Inner output form start */}
+        <Grid size={6}>
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}>
+                    <div className='tablediv'>Invested Amount</div>
+                </Grid>
+                <Grid size={6}>
+                    <div id="invested-amount"></div>{inrFormatter.format(obj.investment)}
+                </Grid>
+            </Grid>
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}>
+                    <div className='tablediv'>Estimated Return</div>
+                </Grid>
+                <Grid size={6}>
+                <div id='estimated-return'></div>
                 {inrFormatter.format(Math.round( obj.investment * Math.pow((1 + obj.rate/100), obj.year)) - obj.investment)}
-                </td>
-            </tr>
-            <tr>
-               <td>
-               <div className='tablediv'>Total Value</div>
-                </td>
-                <td><div id='total-value'></div>{inrFormatter.format(Math.round( obj.investment * Math.pow((1 + obj.rate/100), obj.year)))}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                </Grid>
+            </Grid>
+            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6}>
+                    <div className='tablediv'>Total Value</div>
+                </Grid>
+                <Grid size={6}>
+                    <div id='total-value'></div>{inrFormatter.format(Math.round( obj.investment * Math.pow((1 + obj.rate/100), obj.year)))}
+                </Grid>
+            </Grid>
+        </Grid>
+         {/* Inner output form start */}
+        <Grid size={6}>
+          {/* Empty for adding new feature */}
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
