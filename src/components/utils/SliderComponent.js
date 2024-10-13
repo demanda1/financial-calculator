@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 
-function SliderComponent({ onValueChange, max, defaultValue, element , step}) {
+function SliderComponent({ onValueChange, max, defaultValue, element , step, disabled}) {
 
     const handleChange = (event) => {
         const newValue= event.target.value;
@@ -28,6 +28,7 @@ function SliderComponent({ onValueChange, max, defaultValue, element , step}) {
           min={0}
           max={Number(max)}
           step={step}
+          disabled={disabled}
         />
         </Box>
         </Grid>

@@ -60,11 +60,11 @@ export default function SwpForm() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Grid container paddingTop={5} rowSpacing={1} >
-        <Grid size={6}>
+      <Grid container  padding={1} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid size={6} item xs={12} sm={6} md={4}>
         {/* Inner sip form  open*/}
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}>
+            <Grid container  padding={0} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4}>
                     <Box sx={{ padding: 2}}>
                         <div className='tablediv'>Total Investment</div>
                     </Box>
@@ -86,8 +86,8 @@ export default function SwpForm() {
                 
             </Grid>
 
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}>
+            <Grid container  padding={0} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4}>
                     <Box sx={{ padding: 2}}>
                         <div className='tablediv'>Withdrawal per month</div>
                     </Box>
@@ -109,8 +109,8 @@ export default function SwpForm() {
                 
             </Grid>
 
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}>
+            <Grid container  padding={0} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4}>
                     <Box sx={{ padding: 2}}>
                         <div className='tablediv'>Expected Return Rate</div>
                     </Box>
@@ -129,12 +129,12 @@ export default function SwpForm() {
                         <SliderComponent onValueChange={handleSliderChange} element='rate' max='50' defaultValue={12} step={0.1}/>
             </Grid>
 
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}> <Box sx={{ padding: 2}}>
+            <Grid container  padding={0} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4}> <Box sx={{ padding: 2}}>
                     <div className='tablediv'>Time Period</div> 
                     </Box>
                 </Grid>
-                <Grid size={6}> <Box sx={{ padding: 2 }}>
+                <Grid size={6} item xs={12} sm={6} md={4}> <Box sx={{ padding: 2 }}>
                     <div> 
                         <TextField  label="Years" id="year" type="number" defaultValue={obj.year} size="small" 
                         slotProps={{
@@ -151,7 +151,7 @@ export default function SwpForm() {
 
         {/* Inner sip form closed */} 
         </Grid>
-        <Grid paddingTop={10} size={6}>
+        <Grid paddingTop={10} size={6} item xs={12} sm={6} md={4}>
         <PieChart
                         series={[
                         {
@@ -174,36 +174,36 @@ export default function SwpForm() {
                 />
         </Grid>
        {/* Inner output form start */}
-        <Grid size={6}>
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}>
-                    <div className='tablediv'>Invested Amount</div>
+       <Grid size={6} item xs={12} sm={6} md={4} sx={{ backgroundColor: '#943cb4' , borderRadius: 2  }}>
+            <Grid container  padding={1} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4} paddingLeft={1}>
+                <h4 style={{ margin:'0px', paddingLeft:'10px', color:'#ffffff'}} className='tablediv'>Invested Amount</h4>
                 </Grid>
-                <Grid size={6}>
-                    <div id="invested-amount"></div>{inrFormatter.format(obj.investment)}
-                </Grid>
-            </Grid>
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}>
-                    <div className='tablediv'>Total withdrawal</div>
-                </Grid>
-                <Grid size={6}>
-                <div id='total-withdrawal'></div>
-                {inrFormatter.format(Math.round( obj.withdrawal * 12 * obj.year))}
+                <Grid size={6} item xs={12} sm={6} md={4} paddingLeft={1}>
+                <h4 style={{ margin:'0px', paddingLeft:'10px', color:'#ffffff'}} className='tablediv'>{inrFormatter.format(obj.investment)}</h4>
                 </Grid>
             </Grid>
-            <Grid container padding={1} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid size={6}>
-                    <div className='tablediv'>Final Value</div>
+            <Grid container  padding={1} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4} paddingLeft={1}>
+                <h4 style={{ margin:'0px', paddingLeft:'10px', color:'#ffffff'}} className='tablediv'>Estimated Return</h4>
                 </Grid>
-                <Grid size={6}>
-                    <div id='final-value'></div>{inrFormatter.format(Math.round((obj.investment*Math.pow(1+obj.rate/1200,12*obj.year))-
-                     (obj.withdrawal * ((Math.pow((1+obj.rate/1200), 12*obj.year)-1)/(obj.rate/1200)))))}
+                <Grid size={6} item xs={12} sm={6} md={4} paddingLeft={1}>
+                <h4 style={{ margin:'0px', paddingLeft:'10px', color:'#ffffff'}} className='tablediv'>
+                {inrFormatter.format(Math.round( obj.withdrawal * 12 * obj.year))}</h4>
+                </Grid>
+            </Grid>
+            <Grid container  padding={1} rowSpacing={0} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid size={6} item xs={12} sm={6} md={4} paddingLeft={1}>
+                <h4 style={{ margin:'0px', paddingLeft:'10px', color:'#ffffff'}} className='tablediv'>Total Value</h4>
+                </Grid>
+                <Grid size={6} item xs={12} sm={6} md={4} paddingLeft={1}>
+                <h4 style={{ margin:'0px', paddingLeft:'10px', color:'#ffffff'}} className='tablediv'>{inrFormatter.format(Math.round((obj.investment*Math.pow(1+obj.rate/1200,12*obj.year))-
+                     (obj.withdrawal * ((Math.pow((1+obj.rate/1200), 12*obj.year)-1)/(obj.rate/1200)))))}</h4>
                 </Grid>
             </Grid>
         </Grid>
          {/* Inner output form start */}
-        <Grid size={6}>
+        <Grid size={6} item xs={12} sm={6} md={4}>
           {/* Empty for adding new feature */}
         </Grid>
       </Grid>
